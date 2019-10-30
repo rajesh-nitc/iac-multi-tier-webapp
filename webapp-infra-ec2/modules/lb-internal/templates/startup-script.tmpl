@@ -1,0 +1,29 @@
+#!/bin/bash -xe
+
+apt-get update
+apt-get install -yq git awscli
+mkdir /opt/nodejs
+curl https://nodejs.org/dist/v8.12.0/node-v8.12.0-linux-x64.tar.gz | tar xvzf - -C /opt/nodejs --strip-components=1
+
+ln -s /opt/nodejs/bin/node /usr/bin/node
+ln -s /opt/nodejs/bin/npm /usr/bin/npm
+
+npm install -g typescript
+ln -s /opt/nodejs/bin/tsc /usr/bin/tsc
+
+mkdir /opt/app
+cd /opt/app
+git init
+export HOME=/root
+git config --global credential.helper '!aws codecommit credential-helper $@'
+git config --global credential.UseHttpPath true
+git pull https://git-codecommit.${region}.amazonaws.com/v1/repos/${repo_name}
+npm i
+
+export PORT=3000
+export MYSQL_HOST=${database_host}
+export MYSQL_DATABASE=${database_name}
+export MYSQL_USER=${database_user}
+export MYSQL_PASSWORD=${database_password}
+
+npm run start

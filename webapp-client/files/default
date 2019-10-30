@@ -1,0 +1,20 @@
+upstream node {
+    server 10.0.1.2:3000;
+    # server 172.20.0.1:3002;
+}
+
+server {
+    listen       80;
+    server_name  localhost;
+
+    location / {
+        root   /var/www/html;
+        try_files $uri $uri/ /index.html;
+        index  index.html index.htm;
+    }
+
+    location /api {
+        proxy_pass http://node;
+    }
+
+}

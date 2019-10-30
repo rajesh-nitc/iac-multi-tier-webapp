@@ -1,0 +1,16 @@
+#!/bin/bash -xe
+
+apt-get update
+apt-get install -yq git nginx awscli
+mkdir /opt/app
+cd /opt/app
+git init
+export HOME=/root
+git config --global credential.helper '!aws codecommit credential-helper $@'
+git config --global credential.UseHttpPath true
+git pull https://git-codecommit.${region}.amazonaws.com/v1/repos/${repo_name}
+
+mv /opt/app/files/default /etc/nginx/sites-enabled
+rm /var/www/html/index.nginx-debian.html
+mv /opt/app/dist/web-app/* /var/www/html
+service nginx reload
