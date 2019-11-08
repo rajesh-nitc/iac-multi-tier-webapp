@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodejs-deployment2
+  labels:
+    App: label-nodejs
+spec:
+  selector:
+    matchLabels:
+      App: label-nodejs
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        App: label-nodejs
+    spec:
+      containers:
+        - name: nodejs-container
+          image: CONTAINER_IMAGE
+          imagePullPolicy: Always
+          env:
+            - name: MYSQL_HOST
+              value: terraform-20191108055932125200000005.cyel8uespkyy.us-east-2.rds.amazonaws.com
+            - name: MYSQL_DATABASE
+              value: mydatabase
+            - name: MYSQL_USER
+              value: rajesh
+            - name: MYSQL_PASSWORD
+              value: master12
+            - name: PORT
+              value: "3000"
+          ports:
+            - containerPort: 3000

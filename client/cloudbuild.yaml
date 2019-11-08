@@ -1,0 +1,51 @@
+steps:
+- name: "gcr.io/cloud-builders/docker"
+  args: ["build", "-t", "gcr.io/$PROJECT_ID/mynginx:$SHORT_SHA", "."]
+
+- name: 'gcr.io/cloud-builders/docker'
+  id: Push
+  args:
+  - 'push'
+  - 'gcr.io/$PROJECT_ID/mynginx:$SHORT_SHA'
+
+# [START cloudbuild-trigger-cd]
+# This step clones the hello-cloudbuild-env repository
+- name: 'gcr.io/cloud-builders/gcloud'
+  id: Clone env repository
+  entrypoint: /bin/sh
+  args:
+  - '-c'
+  - |
+    gcloud source repos clone env && \
+    cd env && \
+    git checkout candidate-client && \
+    git config user.email $(gcloud auth list --filter=status:ACTIVE --format='value(account)')
+
+# This step generates the new manifest
+- name: 'gcr.io/cloud-builders/gcloud'
+  id: Generate manifest
+  entrypoint: /bin/sh
+  args:
+  - '-c'
+  - |
+     sed "s/GOOGLE_CLOUD_PROJECT/${PROJECT_ID}/g" kubernetes-client.yaml.tpl | \
+     sed "s/COMMIT_SHA/${SHORT_SHA}/g" > env/kubernetes-client.yaml
+
+# This step pushes the manifest back to hello-cloudbuild-env
+- name: 'gcr.io/cloud-builders/gcloud'
+  id: Push manifest
+  entrypoint: /bin/sh
+  args:
+  - '-c'
+  - |
+    set -x && \
+    cd env && \
+    git add kubernetes-client.yaml && \
+    git commit -m "Deploying image gcr.io/${PROJECT_ID}/mynginx:${SHORT_SHA}
+    Built from commit ${COMMIT_SHA} of repository webapp-client
+    Author: $(git log --format='%an <%ae>' -n 1 HEAD)" && \
+    git push origin candidate-client
+
+# [END cloudbuild-trigger-cd]
+
+

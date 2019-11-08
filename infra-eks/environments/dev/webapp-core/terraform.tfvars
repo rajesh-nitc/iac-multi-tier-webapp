@@ -1,0 +1,5 @@
+region = "us-east-2"
+CONTAINER_IMAGE_NODE="851186901830.dkr.ecr.us-east-2.amazonaws.com/mynodejs:build-a2e30be6-c748-456b-9fbb-ce24e0df3be7"
+app_label_nodejs="label-nodejs"
+app_label_nginx="label-nginx"
+CONTAINER_IMAGE_NGINX="851186901830.dkr.ecr.us-east-2.amazonaws.com/mynginx:build-f9060529-d08b-42fd-b1b2-542c18fc1ac9"
