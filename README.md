@@ -1,7 +1,9 @@
 ## iac
-
+### prerequisite
+aws account \
+gcp account
 ### webapp
-3 tier application with a frontend in Angular, served by nginx webserver, backend in nodejs and a mysql database
+3-tier web application with frontend in Angular, served by nginx webserver, backend in nodejs and a mysql database
 
 ### folder structure
 There are four mutually exclusive projects in this repo:
