@@ -59,7 +59,7 @@ terraform init
 terraform plan
 terraform apply --auto-approve
 ```
-Push client code, server code in their respective repos \
+Push client code, server code in their respective repos
 1. Deploy the kubernetes cluster
 Look for this comment "After creating the cluster" in ```infra-gke/environments/dev/webapp-core/main.tf``` and comment out everything after this comment
 ```
@@ -68,7 +68,7 @@ terraform init
 terraform plan
 terraform apply --auto-approve
 ```
-*This will deploy the kubernetes cluster* \
+*This will deploy the kubernetes cluster* 
 
 2. Deploy webapp on the kubernetes cluster
 Now uncomment everything after this comment "After creating the cluster" in ```infra-gke/environments/dev/webapp-core/main.tf``` and comment out part above about creating the cluster
