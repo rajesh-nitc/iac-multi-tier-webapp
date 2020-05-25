@@ -1,5 +1,5 @@
 # Iac
-There are four mutually exclusive projects in this repo:
+There are four mutually exclusive projects in this repo based on deployment environment:
 1. infra-ec2
 2. infra-gce
 3. infra-gke
