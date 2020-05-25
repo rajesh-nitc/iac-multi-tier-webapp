@@ -11,7 +11,7 @@ aws account \
 gcp account
 
 ## EC2
-Deploy three ```aws_codecommit_repository```, one to store client code, one for server code and one to store infra code:
+Deploy three ```aws_codecommit_repository```, one to store client code, one for server code and one to store infra code (optional):
 ```
 cd infra-ec2/environments/dev/webapp-init
 terraform init
@@ -29,7 +29,7 @@ terraform apply --auto-approve
 *This will deploy an application load balancer, autoscaling group for the angular application, internal application load balancer, autoscaling group for the nodejs application and a private rds mysql database*
 
 ## GCE
-Deploy three ```google_sourcerepo_repository```, one to store client code, one for server code and one to store infra code and a ```google_storage_bucket``` to store terraform state:
+Deploy three ```google_sourcerepo_repository```, one to store client code, one for server code and one to store infra code (optional) and a ```google_storage_bucket``` to store terraform state:
 ```
 cd infra-gce/environments/dev/webapp-init
 terraform init
