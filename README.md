@@ -10,7 +10,7 @@ There are four mutually exclusive projects in this repo based on deployment envi
 
 Each project deploy the cloud infrastructure and the webapp which is a 3-tier web application with frontend in Angular, served by nginx webserver, backend in nodejs and a mysql database
 
-> Each project deploy an application load balancer, autoscaling group for the angular application, internal application load balancer, autoscaling group for the nodejs application and a private rds mysql database
+> EC2 and GCE project deploy an application load balancer, autoscaling group for the angular application, internal application load balancer, autoscaling group for the nodejs application and a private rds mysql database
 ## Prerequisites
 aws account \
 gcp account
