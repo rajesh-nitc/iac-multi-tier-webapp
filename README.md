@@ -1,7 +1,5 @@
 # Iac
 
-> If you’re using this demo, please :star: this repository to show your interest!
-
 There are four mutually exclusive projects in this repo based on deployment environment:
 1. infra-ec2
 2. infra-gce
